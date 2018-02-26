@@ -167,10 +167,6 @@ if [ ! -f requirements.txt ] && [ ! -f Pipfile ]; then
   echo "-e ." > requirements.txt
 fi
 
-# Fix egg-links.
-# shellcheck source=bin/steps/eggpath-fix
-source "$BIN_DIR/steps/eggpath-fix"
-
 # Mercurial support.
 # shellcheck source=bin/steps/mercurial
 source "$BIN_DIR/steps/mercurial"
@@ -251,10 +247,6 @@ cp "$ROOT_DIR/vendor/python.gunicorn.sh" "$GUNICORN_PROFILE_PATH"
 # Experimental post_compile hook.
 # shellcheck source=bin/steps/hooks/post_compile
 source "$BIN_DIR/steps/hooks/post_compile"
-
-# Fix egg-links, again.
-# shellcheck source=bin/steps/eggpath-fix2
-source "$BIN_DIR/steps/eggpath-fix2"
 
 # Store new artifacts in cache.
 
