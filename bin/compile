@@ -260,12 +260,6 @@ if [ ! -f requirements.txt ] && [ ! -f Pipfile ]; then
   echo "-e ." > requirements.txt
 fi
 
-# Fix egg-links.
-# Because we're installing things into a different path than we're running them (temp dir vs app dir),
-# We must re-write all of Python's eggpath links to target the proper directory.
-# shellcheck source=bin/steps/eggpath-fix
-source "$BIN_DIR/steps/eggpath-fix"
-
 # Mercurial support.
 # If a customer appears to be using mercurial for dependency resolution, we install it first.
 # Note: this only applies to pip, not pipenv. This can likely be removed, over time. Measure it first.
@@ -369,11 +363,7 @@ cp "$ROOT_DIR/vendor/python.gunicorn.sh" "$GUNICORN_PROFILE_PATH"
 # shellcheck source=bin/steps/hooks/post_compile
 source "$BIN_DIR/steps/hooks/post_compile"
 
-# Fix egg-links, again.
-# shellcheck source=bin/steps/eggpath-fix2
-source "$BIN_DIR/steps/eggpath-fix2"
-
-# Store new artifacts in the cache.
+# Store new artifacts in cache.
 rm -rf "$CACHE_DIR/.heroku/python"
 rm -rf "$CACHE_DIR/.heroku/python-version"
 rm -rf "$CACHE_DIR/.heroku/python-stack"
