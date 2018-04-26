@@ -150,7 +150,11 @@ source "$BIN_DIR/steps/pipenv"
 
 # If no requirements.txt file given, assume `setup.py develop` is intended.
 if [ ! -f requirements.txt ] && [ ! -f Pipfile ]; then
-  echo "-e ." > requirements.txt
+  if [ -f pip-freeze.py ]; then
+    /app/.heroku/python/bin/python pip-freeze.py > requirements.txt
+  else
+    echo "-e ." > requirements.txt
+  fi
 fi
 
 # Mercurial support.
